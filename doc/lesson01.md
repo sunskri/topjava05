@@ -79,7 +79,7 @@
 
 ## <a href="https://drive.google.com/open?id=0B9Ye2auQ_NsFSVRES241MlB2bkE">Уровни и зависимости логгирования. JMX</a>
 
-## Домашнее задание HW01
+## Домашнее задание (делаем ветку HW01 от последнего патча)
 
     По аналогии с Users добавить MealServlet и mealList.jsp.
     Задеплоить приложение (war) в Tomcat c applicationContext=topjava
