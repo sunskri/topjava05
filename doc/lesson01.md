@@ -95,7 +95,7 @@
     
 Optional
 
-    Сделать реализацию CRUD (create/read/update/delete) для списка еды.
+    Сделать В ПАМЯТИ реализацию CRUD (create/read/update/delete) для списка еды.
     AJAX/JavaScript использовать не надо, делаем через <form method="post"> и doPost() в сервлете.
 
 - Ресурсы:
