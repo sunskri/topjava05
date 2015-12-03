@@ -105,3 +105,5 @@ Optional
   - <a href="http://devcolibri.com/1250">JSTL для написания JSP страниц</a>
   - <a href="http://javatutor.net/articles/jstl-patterns-for-developing-web-application-1">JSTL: Шаблоны для разработки веб-приложений в java</a>
   - <a href="http://design-pattern.ru/patterns/mvc.html">MVC - Model View Controller</a>
+
+### <a href="https://gitter.im/JavaOPs/topjava/Lesson01">Вопросы по уроку</a>
