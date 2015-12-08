@@ -145,6 +145,12 @@ Logback для новых проектов стал стандарт. spring-pet
   - деплоить лучше как war exploded: просто нет упаковки в war и при нажатой кнопке `Update Resources on Frame Deactivation` можно обновляться css, html, jsp без передеплоя. При изменении web.xml, добавлении методов, классов необходим redeploy.
   - посомтрите в task manager: возможно у вас запущено несколько JVM и они мешают дург другу. 
 
+- Проблемы с кодировкой в POST. Возможное решение:
+```
+protected void doPost(HttpServletRequest request, ...) {
+    request.setCharacterEncoding("UTF-8");
+```
+
 - Пробелема с maven зависимостью: иногда помогает удаление закаченного артифакта из локального maven репозитория (посмотреть его расположение можно в Maven Settings) и Reimport (последняя и первая кнопка в Maven Projects). 
  
 - Для работы с JSTL кроме добавления зависимости в `pom.xml` не забываем добавлять в шапку JSP:
