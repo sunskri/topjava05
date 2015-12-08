@@ -106,4 +106,20 @@ Optional
   - <a href="http://javatutor.net/articles/jstl-patterns-for-developing-web-application-1">JSTL: Шаблоны для разработки веб-приложений в java</a>
   - <a href="http://design-pattern.ru/patterns/mvc.html">MVC - Model View Controller</a>
 
+---------
+
+### Вопросы по уроку:
+
+- Для подключения `JSTL` в `pom.xml` нужно добавить зависимость:
+```
+<dependency>
+    <groupId>javax.servlet</groupId>
+    <artifactId>jstl</artifactId>
+    <version>1.2</version>
+</dependency>
+```
+С каким scope она добавляется и почему ?
+
+- Определите по <a href="http://www.slf4j.org/legacy.html">зависимостям логирования</a> что нужно изменить в `pom.xml`, чтобы перейти с logback на log4j.
+
 ### <a href="https://gitter.im/JavaOPs/topjava/Lesson01">Вопросы по уроку</a>
