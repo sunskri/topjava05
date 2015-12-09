@@ -43,6 +43,7 @@
   - <a href="http://habrahabr.ru/post/77333/">Автоматизация сборки проекта</a>
   - <a href="http://www.sonatype.org/nexus/">Repository management Nexus</a>
   - <a href="http://blog.bintray.com/2014/02/11/bintray-as-pain-free-gateway-to-maven-central/">Bintray: gateway to Maven Central</a>
+  - <a href="http://study-and-dev.com/blog/build_management_maven_1/">Разработка ПО вместе с maven</a>
 
 ## <a href="https://drive.google.com/open?id=0B9Ye2auQ_NsFT3pWNkMzWVVybnc&authuser=0">WAR. Веб-контейнер Tomcat. Сервлеты.</a>
 - **<a href="https://drive.google.com/open?id=0B9Ye2auQ_NsFdy1mMmo4dnoteVk">3_ Switch_ to_ war_ packaging.patch</a>**
