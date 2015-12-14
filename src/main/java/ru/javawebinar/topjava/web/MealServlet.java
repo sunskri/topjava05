@@ -2,7 +2,6 @@ package ru.javawebinar.topjava.web;
 
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import ru.javawebinar.topjava.LoggedUser;
 import ru.javawebinar.topjava.LoggerWrapper;
 import ru.javawebinar.topjava.model.UserMeal;
 import ru.javawebinar.topjava.util.TimeUtil;
@@ -28,10 +27,7 @@ import java.util.stream.Collectors;
  */
 public class MealServlet extends HttpServlet {
     private static final LoggerWrapper LOG = LoggerWrapper.get(MealServlet.class);
-
-
     private UserMealRestController mealController;
-
 
     @Override
     public void init(ServletConfig config) throws ServletException {
@@ -44,7 +40,7 @@ public class MealServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         String id = request.getParameter("id");
         UserMeal userMeal = new UserMeal(id.isEmpty() ? null : Integer.valueOf(id),
-                LoggedUser.id(),
+                mealController.getUserId(),
                 LocalDateTime.parse(request.getParameter("dateTime")),
                 request.getParameter("description"),
                 Integer.valueOf(request.getParameter("calories")));
@@ -58,7 +54,7 @@ public class MealServlet extends HttpServlet {
         String userIdStr = request.getParameter("user");
         if (userIdStr != null) {
             int userId = Integer.parseInt(userIdStr);
-            LoggedUser.setId(userId);
+            mealController.setUserId(userId);
             request.getRequestDispatcher("index.html").forward(request, response);
         }
         if (request.getParameter("filter") != null) {
@@ -74,25 +70,20 @@ public class MealServlet extends HttpServlet {
         if (action == null) {
             LOG.info("getAll");
             request.setAttribute("mealList",
-                    UserMealsUtil.getWithExceeded(mealController.getAll()
-                            .stream()
-                            .filter(u -> u.getUserId() == LoggedUser.id())
-                            .collect(Collectors.toList()), UserMealsUtil.DEFAULT_CALORIES_PER_DAY));
+                    UserMealsUtil.getWithExceeded(mealController.getAll(),
+                            UserMealsUtil.DEFAULT_CALORIES_PER_DAY));
             request.getRequestDispatcher("/mealList.jsp").forward(request, response);
         } else if (action.equals("delete")) {
             int id = getId(request);
             LOG.info("Delete {}", id);
-//            if(mealController.get(id).getUserId() != LoggedUser.id() || !mealController.delete(id)){
-//                throw new NotFoundException("user meal not found");
-//            }
-            if(!mealController.delete(id, LoggedUser.id())){
+            if(!mealController.delete(id)){
                 throw new NotFoundException("user meal not found");
             }
             response.sendRedirect("meals");
         } else {
             final UserMeal meal = action.equals("create") ?
-                    new UserMeal(LoggedUser.id(), LocalDateTime.now(), "", 1000) :
-                    mealController.get(getId(request), LoggedUser.id());
+                    new UserMeal(mealController.getUserId(), LocalDateTime.now(), "", 1000) :
+                    mealController.get(getId(request));
             if(meal == null){
                 throw new NotFoundException("user meal not found");
             }

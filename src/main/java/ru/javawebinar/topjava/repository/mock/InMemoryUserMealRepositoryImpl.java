@@ -1,7 +1,6 @@
 package ru.javawebinar.topjava.repository.mock;
 
 import org.springframework.stereotype.Repository;
-import ru.javawebinar.topjava.LoggedUser;
 import ru.javawebinar.topjava.model.UserMeal;
 import ru.javawebinar.topjava.repository.UserMealRepository;
 import ru.javawebinar.topjava.util.UserMealsUtil;
@@ -9,6 +8,7 @@ import ru.javawebinar.topjava.util.UserMealsUtil;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 /**
  * GKislin
@@ -60,9 +60,11 @@ public class InMemoryUserMealRepositoryImpl implements UserMealRepository {
     }
 
     @Override
-    public Collection<UserMeal> getAll() {
-
-        List<UserMeal> meals = new ArrayList<>(repository.values());
+    public Collection<UserMeal> getAll(int userId) {
+        List<UserMeal> meals = new ArrayList<>(repository.values()
+                .stream()
+                .filter(userMeal -> userMeal.getUserId() == userId)
+                .collect(Collectors.toList()));
         Collections.sort(meals, (UserMeal m1, UserMeal m2) ->
                 m1.getDateTime().compareTo(m2.getDateTime()));
         return meals;
