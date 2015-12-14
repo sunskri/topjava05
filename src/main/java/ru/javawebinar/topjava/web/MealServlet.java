@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
@@ -81,15 +82,18 @@ public class MealServlet extends HttpServlet {
         } else if (action.equals("delete")) {
             int id = getId(request);
             LOG.info("Delete {}", id);
-            if(mealController.get(id).getUserId() != LoggedUser.id() || !mealController.delete(id)){
+//            if(mealController.get(id).getUserId() != LoggedUser.id() || !mealController.delete(id)){
+//                throw new NotFoundException("user meal not found");
+//            }
+            if(!mealController.delete(id, LoggedUser.id())){
                 throw new NotFoundException("user meal not found");
             }
             response.sendRedirect("meals");
         } else {
             final UserMeal meal = action.equals("create") ?
                     new UserMeal(LoggedUser.id(), LocalDateTime.now(), "", 1000) :
-                    mealController.get(getId(request));
-            if(meal == null || meal.getUserId() != LoggedUser.id()){
+                    mealController.get(getId(request), LoggedUser.id());
+            if(meal == null){
                 throw new NotFoundException("user meal not found");
             }
             request.setAttribute("meal", meal);
@@ -105,7 +109,12 @@ public class MealServlet extends HttpServlet {
         if(!time.equals("null")){
             dateTime.append(" " + time);
         }
-        return LocalDateTime.parse(dateTime.toString(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        try {
+            return LocalDateTime.parse(dateTime.toString(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        }catch (DateTimeParseException e){
+            return LocalDateTime.parse(dateTime.toString() + "00:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        }
+
     }
     private int getId(HttpServletRequest request) {
         String paramId = Objects.requireNonNull(request.getParameter("id"));

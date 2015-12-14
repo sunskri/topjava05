@@ -24,12 +24,12 @@ public class UserMealRestController {
         return service.save(userMeal);
     }
 
-    public boolean delete(int id){
-        return service.delete(id);
+    public boolean delete(int id, int userId){
+        return service.delete(id, userId);
     }
 
-    public UserMeal get(int id){
-        return service.get(id);
+    public UserMeal get(int id, int userId){
+        return service.get(id, userId);
     }
 
 }

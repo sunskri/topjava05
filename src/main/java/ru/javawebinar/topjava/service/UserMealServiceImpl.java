@@ -2,6 +2,7 @@ package ru.javawebinar.topjava.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.javawebinar.topjava.LoggedUser;
 import ru.javawebinar.topjava.model.UserMeal;
 import ru.javawebinar.topjava.repository.UserMealRepository;
 
@@ -19,13 +20,14 @@ public class UserMealServiceImpl implements UserMealService {
     private UserMealRepository repository;
 
     @Override
-    public boolean delete(int id) {
-        return repository.delete(id);
+    public boolean delete(int id, int userId) {
+
+        return repository.delete(id, userId);
     }
 
     @Override
-    public UserMeal get(int id) {
-        return repository.get(id);
+    public UserMeal get(int id, int userId) {
+        return repository.get(id, userId);
     }
 
     @Override

@@ -32,20 +32,29 @@ public class InMemoryUserMealRepositoryImpl implements UserMealRepository {
     }
 
     @Override
-    public boolean delete(int id) {
+    public boolean delete(int id, int userId) {
         try {
-            repository.remove(id);
+            repository.remove(repository.values()
+                    .stream()
+                    .filter(userMeal -> userMeal.getId() == id && userMeal.getUserId() == userId)
+                    .findFirst()
+                    .get()
+                    .getId());
             return true;
-        } catch (NullPointerException e) {
+        } catch (Exception e) {
             return false;
         }
     }
 
     @Override
-    public UserMeal get(int id) {
+    public UserMeal get(int id, int userId) {
         try {
-            return repository.get(id);
-        } catch (NullPointerException e) {
+            return repository.values()
+                    .stream()
+                    .filter(userMeal -> userMeal.getId() == id && userMeal.getUserId() == userId)
+                    .findFirst()
+                    .get();
+        } catch (Exception e) {
             return null;
         }
     }
